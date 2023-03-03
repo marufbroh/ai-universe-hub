@@ -11,8 +11,8 @@ const displayTools = (tools) =>{
         console.log(tool)
         toolsContainer.innerHTML += `
         <div class="col">
-        <div class="card h-100 p-2">
-            <img src="${tool.image}" class="card-img-top img-fluid" alt="">
+        <div class="card h-100 p-2 shadow border-0">
+            <img src="${tool.image}" class="card-img-top img-fluid img-thumbnail h-50" alt="">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
                 <ol class="list-group p-3">
