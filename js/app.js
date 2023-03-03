@@ -60,14 +60,14 @@ const loadToolsDetails = async (id) => {
 
 
 const displayToolsDetails = (tool) => {
-    console.log(tool.features)
+    console.log(tool)
     const featuresValues = Object.values(tool.features)
     let featuresArray = []
     for(const featuresValue of featuresValues){
         featuresArray.push(featuresValue.feature_name)
     }
     const oli = '% Accuracy';
-    const {description, pricing, image_link, input_output_examples, accuracy} = tool
+    const {description, pricing, image_link, input_output_examples, accuracy, integrations} = tool
     const toolsModalBody = document.getElementById('tools-motal-body');
     toolsModalBody.innerHTML = `
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -89,7 +89,7 @@ const displayToolsDetails = (tool) => {
                     </div>
                     <div>
                         <h5 class="card-title">Integrations</h5>
-                        <ul></ul>
+                        <ul>${integrations? integrations.map(list => `<li>${list}</li>`).join('') : 'No data Found'}</ul>
                     </div>
                 </div>
             </div>
