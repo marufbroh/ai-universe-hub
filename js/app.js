@@ -7,6 +7,10 @@ const loadTools = async () => {
 
 const displayTools = (tools) => {
     const toolsContainer = document.getElementById('tools-container')
+    if(tools.length> 6){
+        tools = tools.slice(0, 6)
+    }
+
     tools.forEach(tool => {
         // console.log(tool)
         toolsContainer.innerHTML += `
@@ -16,9 +20,9 @@ const displayTools = (tools) => {
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
                 <ol class="list-group p-3">
-                    <li>${tool.features[0]}</li>
-                    <li>${tool.features[1]}</li>
-                    <li>${tool.features[2]}</li>
+                <li>${tool.features[0]}</li>
+                <li>${tool.features[1]}</li>
+                <li>${tool.features[2]? tool.features[2] : '' }</li>
                 </ol>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
@@ -37,6 +41,16 @@ const displayTools = (tools) => {
         `
     });
 }
+
+
+// const createItems =(listArray) => {
+// const ol = document.getElementsByTagName('ol')
+// // console.log(ol)
+// listArray.forEach(list =>{
+//     ol.innerHTML +=`<li>${list}</li>`
+// })
+
+// }
 
 
 const loadToolsDetails = async (id) => {
