@@ -71,7 +71,8 @@ const loadToolsDetails = async (id) => {
 
 const displayToolsDetails = (tool) => {
     console.log(tool)
-    const {description, pricing, image_link, input_output_examples} = tool
+    const oli = '% Accuracy';
+    const {description, pricing, image_link, input_output_examples, accuracy} = tool
     const toolsModalBody = document.getElementById('tools-motal-body');
     toolsModalBody.innerHTML = `
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -101,7 +102,8 @@ const displayToolsDetails = (tool) => {
     </div>
     <div class="col">
         <div class="card h-100 text-center">
-            <img src="${image_link[0]}" class="card-img-top" alt="...">
+            <div class="text-end"><span class="badge text-bg-danger w-25">${accuracy.score? accuracy.score * 100+oli  : ''}</span>
+            <img src="${image_link[0]}" class="card-img-top" alt="..."></div>
             <div class="card-body">
                 <h5 class="card-title">${input_output_examples? input_output_examples[0].input : 'Can you give any example?'}</h5>
                 <p class="card-text">${input_output_examples? input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
