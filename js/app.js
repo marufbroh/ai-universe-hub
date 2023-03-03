@@ -9,9 +9,9 @@ const loadTools = async () => {
 const displayTools = (tools) => {
     toggleSpinner(true)
     const toolsContainer = document.getElementById('tools-container')
-    if(tools.length> 6){
-        tools = tools.slice(0, 6)
-    }
+    // if(tools.length> 6){
+    //     tools = tools.slice(0, 6)
+    // }
 
     tools.forEach(tool => {
         // console.log(tool)
@@ -78,13 +78,11 @@ const displayToolsDetails = (tool) => {
     <div class="col">
         <div class="card h-100 bg-dark bg-gradient bg-opacity-10">
             <div class="card-body p-3">
-                <h5 class="card-title">${description}</h5>
+                <h5 class="card-title">${description? description : 'HEllo bro'}</h5>
                 <div class="d-flex justify-content-center align-items-center gap-2 fw-semibold text-center">
-                    <div class="bg-light rounded text-success">
-                    <span>${pricing[0].price} ${pricing[0].plan}</span>
-                    </div>
-                    <div class="bg-light rounded text-warning"><span>${pricing[1].price} ${pricing[1].plan}</span></div>
-                    <div class="bg-light rounded text-danger"><span>${pricing[2].price} ${pricing[2].plan}</span></div>
+                    <div class="bg-light rounded text-success"><span>${pricing? pricing[0].price : 'Free of Cost'} <br> ${pricing? pricing[0].plan : 'Basic'}</span></div>
+                    <div class="bg-light rounded text-warning"><span>${pricing? pricing[1].price : 'Free of Cost'} <br> ${pricing? pricing[1].plan : 'Pro'}</span></div>
+                    <div class="bg-light rounded text-danger"><span>${pricing? pricing[2].price : 'Free of Cost'} <br> ${pricing? pricing[2].plan : 'Enterprise'}</span></div>
                 </div>
 
                 <div class="d-flex justify-content-between">
