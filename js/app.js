@@ -21,7 +21,7 @@ const displayTools = (tools) => {
             <img src="${tool.image}" class="card-img-top img-fluid img-thumbnail h-50" alt="">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
-                <ol class="list-group p-3"></ol>
+                <ol class="list-group p-3">${tool.features.map(list => `<li>${list}</li>`).join('')}</ol>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -43,16 +43,6 @@ const displayTools = (tools) => {
 }
 
 
-// const createItems =(listArray) => {
-// const ol = document.getElementsByTagName('ol')
-// // console.log(ol)
-// listArray.forEach(list =>{
-//     ol.innerHTML +=`<li>${list}</li>`
-// })
-
-// }
-
-
 const toggleSpinner = isLoading => {
     const spinnerSec = document.getElementById('spinner');
     if (isLoading) {
@@ -70,7 +60,12 @@ const loadToolsDetails = async (id) => {
 
 
 const displayToolsDetails = (tool) => {
-    console.log(tool)
+    console.log(tool.features)
+    const featuresValues = Object.values(tool.features)
+    let featuresArray = []
+    for(const featuresValue of featuresValues){
+        featuresArray.push(featuresValue.feature_name)
+    }
     const oli = '% Accuracy';
     const {description, pricing, image_link, input_output_examples, accuracy} = tool
     const toolsModalBody = document.getElementById('tools-motal-body');
@@ -89,7 +84,7 @@ const displayToolsDetails = (tool) => {
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">Features</h5>
-                        <ul></ul>
+                        <ul>${featuresArray.map(list => `<li>${list}</li>`).join('')}</ul>
 
                     </div>
                     <div>
@@ -102,7 +97,7 @@ const displayToolsDetails = (tool) => {
     </div>
     <div class="col">
         <div class="card h-100 text-center">
-            <div class="text-end"><span class="badge text-bg-danger w-25">${accuracy.score? accuracy.score * 100+oli  : ''}</span>
+            <div class="text-end"><span class="badge text-bg-danger w-30 p-2">${accuracy.score? accuracy.score * 100+oli  : ''}</span>
             <img src="${image_link[0]}" class="card-img-top" alt="..."></div>
             <div class="card-body">
                 <h5 class="card-title">${input_output_examples? input_output_examples[0].input : 'Can you give any example?'}</h5>
