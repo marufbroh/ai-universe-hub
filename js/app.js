@@ -1,3 +1,4 @@
+// Fetch data from API
 const loadTools = async (dataLimit) => {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     const res = await fetch(URL);
@@ -5,7 +6,7 @@ const loadTools = async (dataLimit) => {
     displayTools(data.data.tools, dataLimit)
 }
 
-
+// Fetch data for Sort by Date Funtion
 const sortByDate = async (dataLimit) => {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     const res = await fetch(URL);
@@ -16,16 +17,16 @@ const sortByDate = async (dataLimit) => {
     displayTools(sortData, dataLimit)
 }
 
-
+// Process Load for Show More Button
 const processLoad = (dataLimit = 6) => {
     loadTools(dataLimit)
     sortByDate(dataLimit)
 }
 
-
+// Display AI Universe cards Function
 const displayTools = (tools, dataLimit) => {
-    toggleSpinner(true)
 
+    toggleSpinner(true)
     const showMoreContainer = document.getElementById('show-more')
     if (dataLimit !== 6 && tools.length > 6) {
         tools = tools.slice(0, 6)
@@ -38,7 +39,6 @@ const displayTools = (tools, dataLimit) => {
     const toolsContainer = document.getElementById('tools-container')
     toolsContainer.innerHTML = '';
     tools.forEach(tool => {
-        // console.log(tool)
         toolsContainer.innerHTML += `
         <div class="col">
         <div class="card h-100 p-2 shadow border-0">
@@ -66,7 +66,7 @@ const displayTools = (tools, dataLimit) => {
     toggleSpinner(false)
 }
 
-
+// Toggle Spinner Function
 const toggleSpinner = isLoading => {
     const spinnerSec = document.getElementById('spinner');
     if (isLoading) {
@@ -74,12 +74,12 @@ const toggleSpinner = isLoading => {
     }
 }
 
-
+// Get Show More button by Id
 document.getElementById('show-more-btn').addEventListener('click', function () {
     processLoad()
 })
 
-
+// Fetch Tools Details for Modal
 const loadToolsDetails = async (id) => {
     const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     const res = await fetch(URL);
@@ -87,16 +87,17 @@ const loadToolsDetails = async (id) => {
     displayToolsDetails(data.data)
 }
 
-
+// Display Modal Function
 const displayToolsDetails = (tool) => {
-    // console.log(tool)
+
     const featuresValues = Object.values(tool.features)
     let featuresArray = []
     for (const featuresValue of featuresValues) {
         featuresArray.push(featuresValue.feature_name)
     }
+
     const accuracyFixer = '% Accuracy';
-    const { description, pricing, image_link, input_output_examples, accuracy, integrations } = tool
+    const { description, pricing, image_link, input_output_examples, accuracy, integrations } = tool;
     const toolsModalBody = document.getElementById('tools-motal-body');
     toolsModalBody.innerHTML = `
     <div class="row row-cols-1 row-cols-md-2 g-4">
