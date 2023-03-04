@@ -5,30 +5,23 @@ const loadTools = async (dataLimit) => {
     displayTools(data.data.tools, dataLimit)
 }
 
+
 const sortByDate = async (dataLimit) => {
     const URL = 'https://openapi.programming-hero.com/api/ai/tools'
     const res = await fetch(URL);
     const data = await res.json();
     const sortData = data.data.tools.sort(function (a, b) {
-        // return new Date(a.published_in) - new Date(b.published_in);
         return new Date(a.published_in) - new Date(b.published_in)
     });
     displayTools(sortData, dataLimit)
 }
+
 
 const processLoad = (dataLimit = 6) => {
     loadTools(dataLimit)
     sortByDate(dataLimit)
 }
 
-// const sortByDate = (tools) => {
-//     // console.log(tools)
-//     tools.sort(function (a, b) {
-//         // return new Date(a.published_in) - new Date(b.published_in);
-//         return new Date(a.published_in) - new Date(b.published_in)
-//     });
-//     displayTools()
-// };
 
 const displayTools = (tools, dataLimit) => {
     toggleSpinner(true)
@@ -86,14 +79,6 @@ document.getElementById('show-more-btn').addEventListener('click', function () {
     processLoad()
 })
 
-// document.getElementById('sort-by-date').addEventListener('click', function () {
-//     const sortByDate = (tools) => {
-//         tools.sort(function (a, b) {
-//             return new Date(a.published_in) - new Date(b.published_in);
-//         });
-//     }
-// })
-
 
 const loadToolsDetails = async (id) => {
     const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`
@@ -110,26 +95,25 @@ const displayToolsDetails = (tool) => {
     for (const featuresValue of featuresValues) {
         featuresArray.push(featuresValue.feature_name)
     }
-    const oli = '% Accuracy';
+    const accuracyFixer = '% Accuracy';
     const { description, pricing, image_link, input_output_examples, accuracy, integrations } = tool
     const toolsModalBody = document.getElementById('tools-motal-body');
     toolsModalBody.innerHTML = `
     <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
-        <div class="card h-100 bg-dark bg-gradient bg-opacity-10">
+        <div class="card bg-info border-0 shadow-lg bg-opacity-25 h-100">
             <div class="card-body p-3">
                 <h5 class="card-title">${description ? description : 'HEllo bro'}</h5>
-                <div class="d-flex justify-content-center align-items-center gap-2 fw-semibold text-center">
-                    <div class="bg-light rounded text-success"><span>${pricing ? pricing[0].price : 'Free of Cost'} <br> ${pricing ? pricing[0].plan : 'Basic'}</span></div>
-                    <div class="bg-light rounded text-warning"><span>${pricing ? pricing[1].price : 'Free of Cost'} <br> ${pricing ? pricing[1].plan : 'Pro'}</span></div>
-                    <div class="bg-light rounded text-danger"><span>${pricing ? pricing[2].price : 'Free of Cost'} <br> ${pricing ? pricing[2].plan : 'Enterprise'}</span></div>
+                <div class="d-flex justify-content-around gap-2 fw-semibold text-center my-5">
+                    <div class="bg-light rounded p-lg-2"><span class="text-success">${pricing ? pricing[0].price : 'Free of Cost'} <br> ${pricing ? pricing[0].plan : 'Basic'}</span></div>
+                    <div class="bg-light rounded p-lg-2"><span class="text-warning">${pricing ? pricing[1].price : 'Free of Cost'} <br> ${pricing ? pricing[1].plan : 'Pro'}</span></div>
+                    <div class="bg-light rounded p-lg-2"><span class="text-danger">${pricing ? pricing[2].price : 'Free of Cost'} <br> ${pricing ? pricing[2].plan : 'Enterprise'}</span></div>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">Features</h5>
                         <ul>${featuresArray.map(list => `<li>${list}</li>`).join('')}</ul>
-
                     </div>
                     <div>
                         <h5 class="card-title">Integrations</h5>
@@ -140,10 +124,10 @@ const displayToolsDetails = (tool) => {
         </div>
     </div>
     <div class="col">
-        <div class="card h-100 text-center">
-            <div class="text-end"><span class="badge text-bg-danger w-30 p-2">${accuracy.score ? accuracy.score * 100 + oli : ''}</span>
+        <div class="card text-center shadow-lg border-0 ">
+            <div><span class="badge text-bg-danger w-30 p-2 position-absolute end-0">${accuracy.score ? accuracy.score * 100 + accuracyFixer : ''}</span>
             <img src="${image_link[0]}" class="card-img-top" alt=""></div>
-            <div class="card-body">
+            <div class="card-body my-5">
                 <h5 class="card-title">${input_output_examples ? input_output_examples[0].input : 'Can you give any example?'}</h5>
                 <p class="card-text">${input_output_examples ? input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
             </div>
@@ -151,10 +135,4 @@ const displayToolsDetails = (tool) => {
     </div>
 </div>
     `
-}
-
-// const sortByDate = (tools) => {
-//     tools.sort(function (a, b) {
-//         return new Date(a.published_in) - new Date(b.published_in);
-//     });
-// };
+};
