@@ -10,11 +10,13 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
-<body class="container">
+<body class="container" onload="loadTools()">
+
+    <!-- id="sort-by-date" -->
 
     <header class="text-center my-4">
         <h1>AI Universe Hub</h1>
-        <button type="button" class="btn btn-dark mt-3">Sort By Date</button>
+        <button id="sort-by-date" onclick="sortByDate()" type="button" class="btn btn-dark mt-3">Sort By Date</button>
     </header>
 
     <main>

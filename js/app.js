@@ -3,13 +3,32 @@ const loadTools = async (dataLimit) => {
     const res = await fetch(URL);
     const data = await res.json();
     displayTools(data.data.tools, dataLimit)
-
 }
 
+const sortByDate = async (dataLimit) => {
+    const URL = 'https://openapi.programming-hero.com/api/ai/tools'
+    const res = await fetch(URL);
+    const data = await res.json();
+    const sortData = data.data.tools.sort(function (a, b) {
+        // return new Date(a.published_in) - new Date(b.published_in);
+        return new Date(a.published_in) - new Date(b.published_in)
+    });
+    displayTools(sortData, dataLimit)
+}
 
 const processLoad = (dataLimit = 6) => {
     loadTools(dataLimit)
+    sortByDate(dataLimit)
 }
+
+// const sortByDate = (tools) => {
+//     // console.log(tools)
+//     tools.sort(function (a, b) {
+//         // return new Date(a.published_in) - new Date(b.published_in);
+//         return new Date(a.published_in) - new Date(b.published_in)
+//     });
+//     displayTools()
+// };
 
 const displayTools = (tools, dataLimit) => {
     toggleSpinner(true)
@@ -67,6 +86,14 @@ document.getElementById('show-more-btn').addEventListener('click', function () {
     processLoad()
 })
 
+// document.getElementById('sort-by-date').addEventListener('click', function () {
+//     const sortByDate = (tools) => {
+//         tools.sort(function (a, b) {
+//             return new Date(a.published_in) - new Date(b.published_in);
+//         });
+//     }
+// })
+
 
 const loadToolsDetails = async (id) => {
     const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`
@@ -77,7 +104,7 @@ const loadToolsDetails = async (id) => {
 
 
 const displayToolsDetails = (tool) => {
-    console.log(tool)
+    // console.log(tool)
     const featuresValues = Object.values(tool.features)
     let featuresArray = []
     for (const featuresValue of featuresValues) {
@@ -115,7 +142,7 @@ const displayToolsDetails = (tool) => {
     <div class="col">
         <div class="card h-100 text-center">
             <div class="text-end"><span class="badge text-bg-danger w-30 p-2">${accuracy.score ? accuracy.score * 100 + oli : ''}</span>
-            <img src="${image_link[0]}" class="card-img-top" alt="..."></div>
+            <img src="${image_link[0]}" class="card-img-top" alt=""></div>
             <div class="card-body">
                 <h5 class="card-title">${input_output_examples ? input_output_examples[0].input : 'Can you give any example?'}</h5>
                 <p class="card-text">${input_output_examples ? input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
@@ -126,4 +153,8 @@ const displayToolsDetails = (tool) => {
     `
 }
 
-loadTools()
+// const sortByDate = (tools) => {
+//     tools.sort(function (a, b) {
+//         return new Date(a.published_in) - new Date(b.published_in);
+//     });
+// };
