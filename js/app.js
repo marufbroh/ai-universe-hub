@@ -102,8 +102,8 @@ const displayToolsDetails = (tool) => {
     toolsModalBody.innerHTML = `
     <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
-        <div class="card bg-info border-0 shadow-lg bg-opacity-25 h-100">
-            <div class="card-body p-3">
+        <div class="card bg-dark border-0 shadow-lg bg-gradient h-100">
+            <div class="card-body p-3 text-white">
                 <h5 class="card-title">${description ? description : 'HEllo bro'}</h5>
                 <div class="d-flex justify-content-around gap-2 fw-semibold text-center my-5">
                     <div class="bg-light rounded p-lg-2"><span class="text-success">${pricing ? pricing[0].price : 'Free of Cost'} <br> ${pricing ? pricing[0].plan : 'Basic'}</span></div>
@@ -125,7 +125,7 @@ const displayToolsDetails = (tool) => {
         </div>
     </div>
     <div class="col">
-        <div class="card text-center shadow-lg border-0 ">
+        <div class="card bg-light bg-gradient text-center shadow-lg border-0 ">
             <div><span class="badge text-bg-danger w-30 p-2 position-absolute end-0">${accuracy.score ? accuracy.score * 100 + accuracyFixer : ''}</span>
             <img src="${image_link[0]}" class="card-img-top" alt=""></div>
             <div class="card-body my-5">
